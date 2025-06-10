@@ -74,5 +74,5 @@ app.post('/web-data', async (req, res) => {
   }
 })
 
-const PORT = 5173
+const PORT = process.env.PORT || 5173
 app.listen(PORT, () => console.log('start server ' + PORT))
