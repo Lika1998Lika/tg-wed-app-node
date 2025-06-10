@@ -4,13 +4,24 @@ const cors = require('cors');
 
 const token = '7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4';
 
+// https://api.telegram.org/bot<7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4>/setWebhook?url=https://my-tg-bot.onrender.com/bot<7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4>
+
+
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const webAppUrl = 'https://funny-manatee-929c25.netlify.app'
+const webAppUrl = 'https://funny-manatee-929c25.netlify.app';
+const APP_URL = 'https://tg-wed-app-node.onrender.com';
+bot.setWebHook(`${APP_URL}/bot${token}`);
+
+app.post(`/bot${token}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
