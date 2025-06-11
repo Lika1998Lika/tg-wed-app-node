@@ -5,11 +5,7 @@ const cors = require('cors');
 const token = '7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4';
 const webAppUrl = 'https://funny-manatee-929c25.netlify.app';
 
-let bot;
-
-if (!bot) {
-  bot = new TelegramBot(token, {polling: true});
-}
+const bot = new TelegramBot(token, {polling: true});
 
 const app = express();
 app.use(express.json());
@@ -23,7 +19,7 @@ bot.on('message', async (msg) => {
     await bot.sendMessage(chatId, 'Ниже появится кнопка', {
       reply_markup: {
         keyboard: [
-          [{text: 'Заполнить форму', web_app: {url: webAppUrl + '/form'}}]
+          [{text: 'Заполнить форму', web_app: {url: `${webAppUrl}/form`}}]
         ],
       resize_keyboard: true,
       }
@@ -49,7 +45,7 @@ bot.on('message', async (msg) => {
 
       setTimeout(async () => {
       await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
-      }, 3000)
+      }, 2000)
     } catch (error) {
       console.log(error)
     }
@@ -59,16 +55,13 @@ bot.on('message', async (msg) => {
 
 app.post('/web-data', async (req, res) => {
   const {query_id, products = [], totalPrice} = req.body;
-  console.log(products)
   try {
     await bot.answerWebAppQuery(query_id, {
       id: query_id,
       type: 'article',
       title: 'Успешная покупка',
       input_message_content: {
-        message_text: `Поздравляем с покупкой! На сумму ${totalPrice}, 
-        ${products.map((item) => item.title).join('')} 
-        `}
+        message_text: `Поздравляем с покупкой! На сумму ${totalPrice}, ${products.map((item) => item.title).join('')} `}
     })
       return res.status(200).json({})
   } catch (e) {
