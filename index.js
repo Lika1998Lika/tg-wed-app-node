@@ -5,7 +5,12 @@ const cors = require('cors');
 const token = '7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4';
 const webAppUrl = 'https://funny-manatee-929c25.netlify.app';
 
-const bot = new TelegramBot(token, {polling: true});
+let bot;
+
+if (!bot) {
+  bot = new TelegramBot(token, {polling: false});
+}
+
 const app = express();
 app.use(express.json());
 app.use(cors());
