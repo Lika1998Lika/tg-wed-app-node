@@ -8,7 +8,7 @@ const webAppUrl = 'https://funny-manatee-929c25.netlify.app';
 let bot;
 
 if (!bot) {
-  bot = new TelegramBot(token, {polling: false});
+  bot = new TelegramBot(token, {polling: true});
 }
 
 const app = express();
@@ -76,5 +76,5 @@ app.post('/web-data', async (req, res) => {
   }
 })
 
-const PORT = process.env.PORT || 10000
+const PORT = 8000
 app.listen(PORT, () => console.log('start server ' + PORT))
