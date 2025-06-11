@@ -10,15 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// https://api.telegram.org/bot<7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4>/setWebhook?url=https://my-tg-bot.onrender.com/bot<7720553112:AAHPoO9-EqPWLBtDqbonQqDbMVk6fmJqCj4>
-// const APP_URL = 'https://tg-wed-app-node.onrender.com';
-// bot.setWebHook(`${APP_URL}/bot${token}`);
-
-// app.post(`/bot${token}`, (req, res) => {
-//   bot.processUpdate(req.body);
-//   res.sendStatus(200);
-// });
-
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
@@ -82,5 +73,5 @@ app.post('/web-data', async (req, res) => {
   }
 })
 
-const PORT = process.env.PORT || 5173
+const PORT = process.env.PORT || 10000
 app.listen(PORT, () => console.log('start server ' + PORT))
