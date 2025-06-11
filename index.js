@@ -8,7 +8,7 @@ const webAppUrl = 'https://funny-manatee-929c25.netlify.app';
 let bot;
 
 if (!bot) {
-  bot = new TelegramBot(token, {polling: true});
+  bot = new TelegramBot(token, {polling: false});
 }
 
 const app = express();
@@ -59,6 +59,7 @@ bot.on('message', async (msg) => {
 
 app.post('/web-data', async (req, res) => {
   const {query_id, products = [], totalPrice} = req.body;
+  console.log(products)
   try {
     await bot.answerWebAppQuery(query_id, {
       id: query_id,
